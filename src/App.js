@@ -1,4 +1,4 @@
-function App1() {
+function App1() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 1
     let resultsTxt = document.querySelector('main h1')
     resultsTxt.innerHTML = results()
 
@@ -38,7 +38,7 @@ function App1() {
 
 }
 
-function App2() {
+function App2() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 2
     let resultsTxt = document.querySelector('main h1')
     resultsTxt.innerHTML = results()
 
@@ -131,7 +131,7 @@ function App2() {
 
 }
 
-function App3() {
+function App3() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 3
     const resultsTxt = document.querySelector('main h1')
     const data = new Date()
 
@@ -140,4 +140,21 @@ function App3() {
     resultsTxt.innerHTML += `<br> ${data.toLocaleString('pt-BR', { dateStyle: 'full', timeStyle: 'short' })}`
 }
 
-App3()
+function App4() { // exercicio para montar um gerador de html e textos com for(let x in array/object)
+    const resultsTxt = document.querySelector('main')
+
+    const elements = [
+        {tag: 'p', texto: 'Frase 1'},
+        {tag: 'div', texto: 'Frase 2'},
+        {tag: 'footer', texto: 'Frase 3'},
+        {tag: 'section', texto: 'Frase 4'},
+    ]
+
+    for(let cont in elements) {
+        let { tag, texto } = elements[cont]
+        resultsTxt.innerHTML += `<${tag}> ${texto} </${tag}>`
+    }
+    
+}
+
+App4()
