@@ -177,4 +177,100 @@ function App5() { //exercicio para montar um comparador de divisao e retornar os
 
 }
 
-App5()
+const timer = () => { // exercicio, criando um timer no navegador com função de iniciar/ stop e zerar
+
+    let hourIndex = 0,  minuteIndex = 0, secondIndex = 0, hour = 0, minute = 0, second = 0, timerOn, start = false
+
+    let panelCreat = document.createElement('div')
+    Object.assign(panelCreat, { className: 'panel' })
+
+    let divButtons = document.createElement('div')
+    divButtons.setAttribute('class', 'divButtons')
+
+    let btnStart = document.createElement('input')
+    Object.assign(btnStart, {
+        id: 'btnStart',
+        className: 'button',
+        type: 'button',
+        value: 'Start',
+    })
+
+    let btnStop = document.createElement('input')
+    Object.assign(btnStop, {
+        id: 'btnStop',
+        className: 'button',
+        type: 'button',
+        value: 'Stop',
+    })
+
+    let btnClean = document.createElement('input')
+    Object.assign(btnClean, {
+        id: 'btnClean',
+        className: 'button',
+        type: 'button',
+        value: 'Clean',
+    })
+
+    let main = document.querySelector('main')
+    main.appendChild(panelCreat)
+    main.appendChild(divButtons)
+    divButtons.appendChild(btnStart)
+    divButtons.appendChild(btnStop)
+    divButtons.appendChild(btnClean)
+
+    let h1 = document.querySelector('main h1') 
+    let panel = document.querySelector('main .panel')
+
+    h1.innerHTML = 'Meu Timer'
+    panel.innerHTML = `00:00:00`
+
+    document.addEventListener('click', (e) => {
+        const elements = e.target
+        let id = elements.id
+
+        if(id === 'btnStart') {
+            if(!start){
+                start = true
+                timerOn = setInterval(timerStart, 1000)
+                panel.style.color = 'black'
+            }
+        }
+        if(id === 'btnStop') {
+            start = false
+            panel.style.color = 'red'
+            timerStop()
+        }
+        if(id === 'btnClean') {
+            start = false
+            hourIndex = 0, minuteIndex = 0, secondIndex = 0
+            panel.innerHTML = `00:00:00`
+            panel.style.color = 'black'
+            timerStop()
+        }
+    })
+
+    function timerStop() {
+        start = false
+        clearInterval(timerOn)
+    }
+
+    function timerStart() {
+        secondIndex++
+
+        if(secondIndex >= 60) secondIndex = 0, minuteIndex++
+        if(minute >= 60) minuteIndex = 0, hourIndex++
+        if(hour >= 24) hourIndex = 0, timerStop()
+
+        if(hourIndex < 10) hour = `0${hourIndex}`
+        else hour = hourIndex
+        if(minuteIndex < 10) minute = `0${minuteIndex}`
+        else minute = minuteIndex
+        if(secondIndex < 10) second = `0${secondIndex}`
+        else second = secondIndex
+
+        return panel.innerHTML = `${hour}:${minute}:${second}`
+    }
+
+}
+
+timer()

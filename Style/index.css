@@ -93,3 +93,27 @@ main section form button {
 .error {
     background-color: var(--cor-incorrect);
 }
+
+.panel {
+    font-size: 4rem;
+}
+
+.divButtons {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
+.button {
+    width: 50px;
+    height: 20px;
+
+    margin: 5px;
+
+    border: none;
+    border-radius: 0 10px;
+
+    background-color: var(--cor-fundo);
+    color: var(--cor-primary);
+
+    cursor: pointer;
+}
