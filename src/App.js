@@ -1,3 +1,4 @@
+
 function App1() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 1
     let resultsTxt = document.querySelector('main h1')
     resultsTxt.innerHTML = results()
@@ -132,7 +133,7 @@ function App2() { // exercicio para montar a data, mes, ano, hora atual e aplica
 }
 
 function App3() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 3
-    const resultsTxt = document.querySelector('main h1')
+    let resultsTxt = document.querySelector('main h1')
     const data = new Date()
 
     resultsTxt.innerHTML = Intl.DateTimeFormat('pt-BR', { dateStyle: 'full', timeStyle: 'short' }).format(new Date())
@@ -141,8 +142,7 @@ function App3() { // exercicio para montar a data, mes, ano, hora atual e aplica
 }
 
 function App4() { // exercicio para montar um gerador de html e textos com for(let x in array/object)
-    const resultsTxt = document.querySelector('main')
-
+    let resultsTxt = document.querySelector('main h1')
     const elements = [
         {tag: 'p', texto: 'Frase 1'},
         {tag: 'div', texto: 'Frase 2'},
@@ -157,4 +157,24 @@ function App4() { // exercicio para montar um gerador de html e textos com for(l
     
 }
 
-App4()
+function App5() { //exercicio para montar um comparador de divisao e retornar os restos
+
+    let resultsTxt = document.querySelector('main h1')
+    
+    let comparador1 = 3, comparador2 = 5, max = 100
+
+    const FizzBuzz = (num, comp1, comp2) => Fizz(num, comp1) && Buzz(num, comp2)
+    const Fizz = (num, comp1) => num % comp1 === 0
+    const Buzz = (num, comp2) => num % comp2 === 0
+
+    for(let i = 0; i <= max; i++) {
+        if(typeof i !== 'number') console.log(i)
+        else if(FizzBuzz(i, comparador1, comparador2)) console.log(i, 'FizzBuzz')
+        else if(Fizz(i, comparador1)) console.log(i, 'Fizz')
+        else if(Buzz(i, comparador2)) console.log(i, 'Buzz')
+        else console.log(i)
+    }
+
+}
+
+App5()
