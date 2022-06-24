@@ -1,3 +1,6 @@
+const mainRoot = document.querySelector('main')
+const mainH1 = document.querySelector('main h1')
+
 
 function App1() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 1
     let resultsTxt = document.querySelector('main h1')
@@ -273,4 +276,101 @@ const timer = () => { // exercicio, criando um timer no navegador com função d
 
 }
 
-timer()
+const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando em cache do navegador
+
+    const listTask = []
+    const initialState = listTask
+
+    let ulTarefas = null
+    let div = null
+
+    function creatDiv(id, className) {
+        let creatDiv = document.createElement('div')
+        Object.assign(creatDiv, {
+            id: id,
+            className: className
+        })
+        return creatDiv
+    }
+
+    function creatInput(type, id, className, value, placeholder) { // função fabrica de Inputs
+        let creatInput = document.createElement('input')
+        Object.assign(creatInput, {
+            type: type,
+            id: id,
+            className: className,
+            value: value,
+            placeholder: placeholder,
+        })
+        return creatInput
+    }
+
+    function creatUl(id, className) {
+        let creatUl = document.createElement('ul')
+        Object.assign(creatUl, {
+            id: id,
+            className: className
+        })
+
+        return creatUl
+    }
+
+    function creatLi(value) { // cria a lista da tarefa e o botão de Remover, função de remoção aqui
+        let delBtn = creatInput('button', 'delBtn', 'delBtn', 'Remove')
+        let creatList = document.createElement('li')
+        creatList.setAttribute('id', 'tarefa')
+        creatList.innerText = value
+
+        creatList.appendChild(delBtn)
+        ulTarefas.appendChild(creatList)
+
+        delBtn.addEventListener('click', () => { // remover elemento da Lista
+            console.log(listTask)
+            creatList.remove()
+            listTask.splice(listTask.indexOf(creatList.textContent), 1)
+            console.log(listTask)
+        })
+
+        return creatList
+    }
+
+    function elementAppendChild(element, functionIn, atribute1, atribute2, atribute3, atribute4, atribute5, atribute6, atribute7) { // função fabrica para adicionar elementos e atributos
+        return element.appendChild(functionIn(atribute1, atribute2, atribute3, atribute4, atribute5, atribute6, atribute7))
+    }
+
+    function app() {
+        mainH1.innerHTML = 'Lista de Tarefa'
+
+        elementAppendChild(mainRoot, creatDiv, 'divPanel', 'divPanel')
+        div = document.querySelector('#divPanel')
+
+        elementAppendChild(div, creatInput, 'text', 'listTxtInput', 'panel', '', 'digite aqui sua tarefa') // criando a barra de texto input para adicionar tarefas a lista
+
+        elementAppendChild(div, creatInput, 'button', 'btnSendInput', 'button', 'Send') // criando o botão de enviar/ send para a lista
+
+        elementAppendChild(mainRoot, creatUl, 'ulTarefas', 'ulTarefas')
+
+        ulTarefas = document.querySelector('#ulTarefas')
+    }
+
+    document.addEventListener('click', (e) => { // Eventos de click por id e atribuição de funções aos mesmos
+        const elements = e.target
+        const idElement = elements.id
+        const classElement = elements.className
+
+        if(idElement === 'btnSendInput') { // Evento de enviar a tarefa para a lista
+            let tarefa = document.querySelector('#listTxtInput').value
+            if(tarefa == '') return alert('[ERROR] Por favor, preencha os campos')
+            listTask.push(tarefa)
+            creatLi(listTask.slice(listTask.length -1))
+        }
+        if(idElement === 'tarefa') { // Evento para checar a tarefa ou desmarcar checagem
+            return classElement === '' ? elements.className = 'checkedTrue' : elements.className = ''
+        }
+    })
+
+    console.log(mainRoot)
+    app()
+}
+
+listaDeTarefa()

@@ -86,6 +86,11 @@ main section form button {
     margin: 10px;
 }
 
+#divPanel {
+    display: flex;
+    flex-flow: row nowrap;
+}
+
 .correct {
     background-color: var(--cor-correct);
 }
@@ -95,7 +100,15 @@ main section form button {
 }
 
 .panel {
-    font-size: 4rem;
+    width: 250px;
+    height: 30px;
+
+    padding: 0 5px;
+    font-size: 1.3rem;
+
+    box-shadow: 2px 1px 3px #121212;
+    border: none;
+    border-radius: 10px 0;
 }
 
 .divButtons {
@@ -105,10 +118,11 @@ main section form button {
 
 .button {
     width: 50px;
-    height: 20px;
+    height: 30px;
 
-    margin: 5px;
+    margin: 0 5px;
 
+    box-shadow: 2px 1px 3px #121212;
     border: none;
     border-radius: 0 10px;
 
@@ -116,4 +130,53 @@ main section form button {
     color: var(--cor-primary);
 
     cursor: pointer;
+    transition: .3s;
+}
+.button:hover {
+    transform: scale(1.05);
+    transition: .3s;
+}
+
+.delBtn {
+    float: right;
+
+    width: 60px;
+    height: 25px;
+    margin: 0 5px;
+
+    box-shadow: 2px 1px 3px #121212;
+    border: none;
+    border-radius: 0 10px;
+
+    background-color: var(--cor-fundo);
+    color: var(--cor-primary);
+
+    cursor: pointer;
+    transition: .3s;
+}
+.delBtn:hover {
+    transform: scale(1.05);
+    transition: .3s;
+}
+
+.checkedTrue {
+    filter: brightness(0.4);
+}
+
+ul {
+    margin: 5px;
+}
+
+ul, ul li {
+    width: 100%;
+    text-decoration: none;
+    list-style: none;
+    border: none;
+}
+
+ul li {
+    background-color: #d2d2d2;
+}
+ul li:nth-child(odd) {
+    background-color: #b9b9b9;
 }
