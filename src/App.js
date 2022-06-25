@@ -278,8 +278,7 @@ const timer = () => { // exercicio, criando um timer no navegador com função d
 
 const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando em cache do navegador
 
-    const listTask = []
-    const initialState = listTask
+    const listTask = [] // lista de todas as tarefas são salvas aqui
 
     let ulTarefas = null
     let div = null
@@ -305,7 +304,7 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         return creatInput
     }
 
-    function creatUl(id, className) {
+    function creatUl(id, className) { // cria a pagina de Lista UL
         let creatUl = document.createElement('ul')
         Object.assign(creatUl, {
             id: id,
@@ -315,7 +314,7 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         return creatUl
     }
 
-    function creatLi(value) { // cria a lista da tarefa e o botão de Remover, função de remoção aqui
+    function creatLi(value) { // cria a lista da tarefa e o botão de Remover junto
         let delBtn = creatInput('button', 'delBtn', 'delBtn', 'Remove')
         let creatList = document.createElement('li')
         creatList.setAttribute('id', 'tarefa')
@@ -324,13 +323,6 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         creatList.appendChild(delBtn)
         ulTarefas.appendChild(creatList)
 
-        delBtn.addEventListener('click', () => { // remover elemento da Lista
-            console.log(listTask)
-            creatList.remove()
-            listTask.splice(listTask.indexOf(creatList.textContent), 1)
-            console.log(listTask)
-        })
-
         return creatList
     }
 
@@ -338,7 +330,12 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         return element.appendChild(functionIn(atribute1, atribute2, atribute3, atribute4, atribute5, atribute6, atribute7))
     }
 
-    function app() {
+    function panelClear(tarefa) { // função para limpar o painel sempre que enviar uma nova tarefa
+        tarefa.value = ''
+        tarefa.focus()
+    }
+
+    function app() { // função root da aplicação
         mainH1.innerHTML = 'Lista de Tarefa'
 
         elementAppendChild(mainRoot, creatDiv, 'divPanel', 'divPanel')
@@ -351,6 +348,34 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         elementAppendChild(mainRoot, creatUl, 'ulTarefas', 'ulTarefas')
 
         ulTarefas = document.querySelector('#ulTarefas')
+        listTxtInput.addEventListener('keypress', (e) => { // enviar com o botão ENTER
+            if(e.keyCode === 13) {
+                let tarefa = document.querySelector('#listTxtInput')
+                if(!tarefa.value) return alert('[ERROR] Por favor, preencha os campos')
+                listSave(listTask, tarefa.value)
+                creatLi(listTask.slice(listTask.length -1))
+                panelClear(tarefa)
+            }
+        })
+
+        recoveryListSave()
+    }
+
+    function listSave(lT, task) {
+        if(task) lT.push(task)
+        const listTaskJSON = JSON.stringify(lT)
+        localStorage.setItem('task', listTaskJSON)
+    }
+
+    function recoveryListSave() {
+        const tasks = localStorage.getItem('task')
+        const tasksList = JSON.parse(tasks)
+
+
+        for(let task of tasksList) {
+            listTask.push(task)
+            creatLi(task)
+        }
     }
 
     document.addEventListener('click', (e) => { // Eventos de click por id e atribuição de funções aos mesmos
@@ -358,19 +383,40 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         const idElement = elements.id
         const classElement = elements.className
 
+        let tarefa = document.querySelector('#listTxtInput')
+
         if(idElement === 'btnSendInput') { // Evento de enviar a tarefa para a lista
-            let tarefa = document.querySelector('#listTxtInput').value
-            if(tarefa == '') return alert('[ERROR] Por favor, preencha os campos')
-            listTask.push(tarefa)
+            if(!tarefa.value) return alert('[ERROR] Por favor, preencha os campos')
+            listSave(listTask, tarefa.value)
             creatLi(listTask.slice(listTask.length -1))
+            panelClear(tarefa)
         }
         if(idElement === 'tarefa') { // Evento para checar a tarefa ou desmarcar checagem
             return classElement === '' ? elements.className = 'checkedTrue' : elements.className = ''
+        }
+        if(idElement === 'delBtn') { // Evento de deletar a tarefa clicando no botão REMOVER
+            // console.log(elements.parentElement)
+            // console.log(listTask)
+            elements.parentElement.remove()
+            listTask.splice(listTask.indexOf(elements.parentElement.textContent), 1)
+            listSave(listTask)
+            // console.log(listTask)
         }
     })
 
     console.log(mainRoot)
     app()
+}
+
+const test1 = () => { // Processo de raspagem de um site, extraindo todos os subtitles da página (h2)
+    {    
+        let subTitlesNodeList = document.querySelectorAll('h2')
+        let subTitlesFormatArrayString = []
+        for(let index in subTitlesNodeList) { 
+            subTitlesFormatArrayString.push(subTitlesNodeList[index].innerText) 
+        }
+        console.log(subTitlesFormatArrayString)
+    }    
 }
 
 listaDeTarefa()
