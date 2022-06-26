@@ -326,8 +326,8 @@ const listaDeTarefa = () => { // exercicio, criando lista de tarefa e salvando e
         return creatList
     }
 
-    function elementAppendChild(element, functionIn, atribute1, atribute2, atribute3, atribute4, atribute5, atribute6, atribute7) { // função fabrica para adicionar elementos e atributos
-        return element.appendChild(functionIn(atribute1, atribute2, atribute3, atribute4, atribute5, atribute6, atribute7))
+    function elementAppendChild(element, functionIn, ...atributs) { // função fabrica para adicionar elementos e atributos
+        return element.appendChild(functionIn(...atributs))
     }
 
     function panelClear(tarefa) { // função para limpar o painel sempre que enviar uma nova tarefa
