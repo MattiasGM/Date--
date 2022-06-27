@@ -38,10 +38,11 @@ main {
 
     border-radius: 20px;
 }
-
+/*
 main th, main td {
     padding: 5px 30px;
 }
+*/
 
 main section form {
     display: flex;
@@ -56,7 +57,7 @@ main section form label {
     justify-content: center;
     align-items: baseline;
 }
-
+/*
 main section form input {
     width: 400px;
     height: 30px;
@@ -80,6 +81,7 @@ main section form button {
     main section form button:hover {
         background-color: var(--cor-sombra);
     }
+    */
 
 #results {
     padding: 10px;
@@ -179,4 +181,38 @@ ul li {
 }
 ul li:nth-child(odd) {
     background-color: #b9b9b9;
+}
+
+.keyboard {
+    width: 400px;
+    height: 250px;
+}
+
+.tdCalc {
+    margin: 0;
+}
+
+.trCalc {
+    margin: 0;
+}
+
+.buttonCalc {
+    width: 90px;
+    height: 35px;
+
+    margin: 0;
+    border: none;
+
+    background-color: #bebebe;
+    color: #121212;
+
+    text-align: center;
+
+    cursor: pointer;
+    transition: .3s;
+}
+.buttonCalc:hover {
+    background-color: #969696;
+    transform: scale(1.05);
+    transition: .3s;
 }
