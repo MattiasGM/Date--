@@ -418,7 +418,7 @@ const test1 = () => { // Processo de raspagem de um site, extraindo todos os sub
         console.log(subTitlesFormatArrayString)
     }    
 }
-}
+
 const calculadora = () => { // Calculadora com function fabric / constructor
 
     function create(element, id = '', className = '', value = '', type = '') { // Function constructor
@@ -469,6 +469,10 @@ const calculadora = () => { // Calculadora com function fabric / constructor
     }
 
     document.addEventListener('click', e => {
+        if(e.target.innerHTML === 'C') {
+            document.querySelector('#panel').innerHTML = ''
+            return
+        }
         if(e.target.innerHTML === '=') {
             document.querySelector('#panel').innerHTML = eval(document.querySelector('#panel').innerHTML)
             return
@@ -489,6 +493,7 @@ const calculadora = () => { // Calculadora com function fabric / constructor
     }
 
     app()
+}
 }
 
 calculadora()
