@@ -196,7 +196,7 @@ ul li:nth-child(odd) {
     margin: 0;
 }
 
-.buttonCalc {
+.buttonCalc, .buttonNum {
     width: 90px;
     height: 35px;
 
@@ -211,7 +211,7 @@ ul li:nth-child(odd) {
     cursor: pointer;
     transition: .3s;
 }
-.buttonCalc:hover {
+.buttonCalc:hover, .buttonNum:hover {
     background-color: #969696;
     transform: scale(1.05);
     transition: .3s;

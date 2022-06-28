@@ -419,81 +419,102 @@ const test1 = () => { // Processo de raspagem de um site, extraindo todos os sub
     }    
 }
 
-const calculadora = () => { // Calculadora com function fabric / constructor
+const calculadora = () => { // Calculadora com function constructor (class constructor using ES6+)
 
-    function create(element, id = '', className = '', value = '', type = '') { // Function constructor
-        return Object.assign(document.createElement(element), {
-                id: id,
-                className: className,
-                value: value,
-                type: type,
-            })
-    }
+    class Calculadora {
+        constructor() {
+            this.display = () => document.querySelector('#panel')
+            this.app = () => {
+                this.creatCalculater()
+                this.captureCliques(this.display())
+            }
 
-    function keyboard(indexX, indexY, elementX, elementY, append, btn) { // teclado da calculadora
-        let keys = ['C', '7', '4', '1', '.', '(', '8', '5', '2', '0', ')', '9', '6', '3', '«', '/', '*', '+', '-', '=']
-        let keyIndex = 0
-        for(let i = 0; i < indexY; i++) {
-            let td = create(elementY, '','tdCalc')
-            append.appendChild(td)
-            for(let n = 0; n < indexX; n++) {
-                let tr = create(elementX, '', 'trCalc')
-                let input = create(btn, '', 'buttonCalc', '', 'button')
-                input.innerHTML = keys[keyIndex]
-                keyIndex++
-                td.appendChild(tr)
-                tr.appendChild(input)
+            this.captureCliques = (dis) => {
+                document.addEventListener('click', e => {
+                    const el = e.target
+                    if(el.classList.contains('buttonCalc')) {
+                        if(el.innerHTML === '=') return this.equal(dis)
+                        if(el.innerHTML === 'C') return this.clear(dis)
+                        if(el.innerHTML === '«') return this.dell(dis)
+                        this.addDisplay(dis, el)
+                    }
+                })
+            }
+
+            this.equal = dis => {
+                try {
+                    return dis.innerHTML ? dis.innerHTML = eval(dis.innerHTML) : ''
+                } catch(err) {
+                    dis.innerHTML = ''
+                    return alert('[ERRO] conta inválida')
+                }
+            }
+
+            this.clear = dis => dis.innerHTML = ''
+
+            this.dell = dis => dis.innerHTML = dis.innerHTML.slice(0, -1)
+
+            this.addDisplay = (dis, el) => {
+                dis.innerHTML += el.innerHTML
+                document.querySelector('#equal').focus()
+            }
+
+            this.creatCalculater = () => {
+                mainH1.innerHTML = 'Calculadora'
+                this.panel()
+                this.keyboard()
+            }
+
+            this.panel = () => {
+                let panel = this.create('div', 'panel', 'panel')
+                mainRoot.appendChild(panel)
+            }
+
+            this.keyboard = () => {
+                let table = this.create('table', 'keyboard', 'keyboard')
+                let tbody = this.create('tbody')
+                this.keyboardConstruct(4, 'tr', 'td', tbody, 'button')
+
+                table.appendChild(tbody)
+                mainRoot.appendChild(table)
+            }
+
+            this.keyboardConstruct = (indexY, elementX, elementY, append, btn) => { // teclado da calculadora
+                let keys = ['C', 7, 4, 1, '.', '(', 8, 5, 2, 0, ')', 9, 6, 3, '«', '/', '*', '+', '-', '=']
+                let input = ''
+                let eixoY = indexY
+                let td
+
+                for(let i in keys) {
+                    if(i === '0' || i === String(indexY)) {
+                        td = this.create(elementY, '','tdCalc')
+                        append.appendChild(td)
+                        if(i != 0) {indexY += eixoY+1} else indexY++
+                    }
+                    let tr = this.create(elementX, '', 'trCalc')
+                    if(keys[i] === '=') {
+                        input = this.create(btn, 'equal', 'buttonCalc', '', 'button')
+                    } else input = this.create(btn, '', 'buttonCalc', '', 'button')
+                    input.innerHTML = keys[i]
+                    td.appendChild(tr)
+                    tr.appendChild(input)
+                }
+            }
+
+            this.create = (element, id = '', className = '', value = '', type = '') => { // criador de elementos
+                return Object.assign(document.createElement(element), {
+                        id: id,
+                        className: className,
+                        value: value,
+                        type: type,
+                    })
             }
         }
     }
 
-    const panelCalc = (root) => {
-        let panel = create('div', 'panel', 'panel')
-        root.appendChild(panel)
-    }
-
-    const bodyCalc = (root) => {
-        let table = create('table', 'keyboard', 'keyboard')
-        let tbody = create('tbody')
-        keyboard(5, 4, 'tr', 'td', tbody, 'button')
-
-        table.appendChild(tbody)
-        root.appendChild(table)
-        console.log(root)
-    }
-
-    const creatCalculater = () => { // App da criação da calculadora
-        mainH1.innerHTML = 'Calculadora'
-        panelCalc(mainRoot)
-        bodyCalc(mainRoot)
-    }
-
-    document.addEventListener('click', e => {
-        if(e.target.innerHTML === 'C') {
-            document.querySelector('#panel').innerHTML = ''
-            return
-        }
-        if(e.target.innerHTML === '=') {
-            document.querySelector('#panel').innerHTML = eval(document.querySelector('#panel').innerHTML)
-            return
-        }
-        if(e.target.innerHTML === '«') {
-            document.querySelector('#panel').innerHTML = document.querySelector('#panel').innerHTML.slice(0, -1)
-            return
-        }
-        if(e.target.className === 'buttonCalc') {
-            document.querySelector('#panel').innerHTML += e.target.innerText
-        }
-    })
-
-    const app = () => {
-
-        creatCalculater()
-
-    }
-
-    app()
+    const calculadora = new Calculadora()
+    calculadora.app()
 }
 }
 
-calculadora()
+//calculadora()
