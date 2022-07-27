@@ -418,7 +418,7 @@ const test1 = () => { // Processo de raspagem de um site, extraindo todos os sub
         console.log(subTitlesFormatArrayString)
     }    
 }
-}
+
 const calculadora = () => { // Calculadora com function constructor (class constructor using ES6+)
 
     class Calculadora {
@@ -515,5 +515,6 @@ const calculadora = () => { // Calculadora com function constructor (class const
     const calculadora = new Calculadora()
     calculadora.app()
 }
+}
 
-calculadora()
+//calculadora()
