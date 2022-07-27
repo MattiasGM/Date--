@@ -13,6 +13,10 @@ const idade = pessoas.map(obj => {
     return obj
 })
 const idade2 = pessoas.map(obj => ({ idade: obj.idade }))
-const adicionaChaveId = pessoas.map((obj, indice) => pessoas)
+const id = pessoas.map((obj, indice) => {
+    const newObj = { ...obj }
+    newObj.id = indice + 1
+    return newObj
+})
 
-console.log(nomes)
+console.log(id)
