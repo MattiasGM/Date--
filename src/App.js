@@ -1,5 +1,5 @@
-const mainRoot = document.querySelector('main')
-const mainH1 = document.querySelector('main h1')
+//const mainRoot = document.querySelector('main')
+//const mainH1 = document.querySelector('main h1')
 
 {
 function App1() { // exercicio para montar a data, mes, ano, hora atual e aplicar na tela forma. 1
@@ -516,30 +516,6 @@ const calculadora = () => { // Calculadora com function constructor (class const
     calculadora.app()
 }
 
-const test000 = () => {
-    const pessoas = [
-        { nome: 'Luiz', idade: 62},
-        { nome: 'Maria', idade: 23},
-        { nome: 'Eduardo', idade: 55},
-        { nome: 'Letícia', idade: 19},
-        { nome: 'Rosana', idade: 32},
-        { nome: 'Wallace', idade: 47},
-    ]
-    
-    // const nomes = pessoas.map(obj => obj.nome)
-    // const idade = pessoas.map(obj => { 
-    //     delete obj.nome
-    //     return obj
-    // })
-    // const idade2 = pessoas.map(obj => ({ idade: obj.idade }))
-    const id = pessoas.map((obj, indice) => {
-        const newObj = { ...obj }
-        newObj.id = indice + 1
-        return newObj
-    })
-    
-    console.log(id)
 }
 
-}
-//test000()
+//reduce()
