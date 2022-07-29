@@ -1,4 +1,4 @@
-/* exercicios
+/* exercicios JS Array avançado
 const map = () => { // exercicio usando obj.map()
     const pessoas = [
         { nome: 'Luiz', idade: 62},
@@ -96,4 +96,43 @@ const forEach = () => { // funciona apena em array's e substitui o -> for(let i 
 }
 */
 
-//forEach()
+/* exercicios JS Objetos e prototypes (avançado)
+
+*/
+
+const property_ies = () => { // usando Object.defineProperty / Object.defineProperties
+    class Produto {
+        constructor(nome, preco, estoque) {
+            
+            Object.defineProperty(this, 'nome', {
+                enumerable: true, // Mostrar a chave
+                value: nome, // Valor
+                writable: true, // Pode Alterar
+                configurable: false, // configuravel / deletavel etc...
+            })
+
+            Object.defineProperties(this, {
+                preco: {
+                    enumerable: true, // Mostrar a chave
+                    value: preco, // Valor
+                    writable: true, // Pode Alterar
+                    configurable: false, // configuravel / deletavel etc...
+                },
+                estoque: {
+                    enumerable: true, // Mostrar a chave
+                    value: estoque, // Valor
+                    writable: true, // Pode Alterar
+                    configurable: false, // configuravel / deletavel etc...
+                }
+            })
+
+        }
+    }
+
+    const p1 = new Produto('Calça', 95, 4)
+
+    console.log(p1)
+
+}
+
+property_ies()
