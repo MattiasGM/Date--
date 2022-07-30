@@ -134,7 +134,7 @@ const property_ies = () => { // usando Object.defineProperty / Object.defineProp
 }
 */
 
-const property_ies = () => { // usando Getters e Setters na constructor class
+const gettersSetters = () => { // usando Getters e Setters na constructor class
     class Produto {
         constructor(nome, preco, estoque) {
             let nomePrivado = nome
@@ -178,4 +178,4 @@ const property_ies = () => { // usando Getters e Setters na constructor class
 
 }
 
-property_ies()
+gettersSetters()
