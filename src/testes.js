@@ -98,8 +98,6 @@ const forEach = () => { // funciona apena em array's e substitui o -> for(let i 
 
 /* exercicios JS Objetos e prototypes (avançado)
 
-*/
-
 const property_ies = () => { // usando Object.defineProperty / Object.defineProperties
     class Produto {
         constructor(nome, preco, estoque) {
@@ -132,6 +130,51 @@ const property_ies = () => { // usando Object.defineProperty / Object.defineProp
     const p1 = new Produto('Calça', 95, 4)
 
     console.log(p1)
+
+}
+*/
+
+const property_ies = () => { // usando Getters e Setters na constructor class
+    class Produto {
+        constructor(nome, preco, estoque) {
+            let nomePrivado = nome
+            
+            Object.defineProperty(this, 'nome', {
+                enumerable: true, // Mostrar a chave
+                //value: nome, // Valor -> não usa value nos getters e setters
+                //writable: true, // Pode Alterar -> não usa writable nos getters e setters
+                configurable: false, // configuravel / deletavel etc...
+                get: () => nomePrivado,
+                set: (valor) => {
+                    if(typeof valor !== 'number') {
+                        throw new TypeError('MensagemERROR')
+                    }
+
+                    nomePrivado = valor
+                }
+            })
+
+            Object.defineProperties(this, {
+                preco: {
+                    enumerable: true, // Mostrar a chave
+                    value: preco, // Valor
+                    writable: true, // Pode Alterar
+                    configurable: false, // configuravel / deletavel etc...
+                },
+                estoque: {
+                    enumerable: true, // Mostrar a chave
+                    value: estoque, // Valor
+                    writable: true, // Pode Alterar
+                    configurable: true, // configuravel / deletavel etc...
+                }
+            })
+
+        }
+    }
+
+    const p1 = new Produto('Calça', 95, 8)
+
+    console.log(p1.nome)
 
 }
 
